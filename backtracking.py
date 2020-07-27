@@ -1,4 +1,4 @@
-from Data import namelist2 , cl , namelist
+from Data import Data
 class Bt:
     def __init__(self , Matrix , V , M,T=2):
         self.graph = Matrix
@@ -28,12 +28,8 @@ class Bt:
 
     def printSolution(self,color) :
         print("Solution Exists: Following are the assigned colors")
-        if self.T==2:
-            lst=namelist2
-        else:
-            lst=namelist
         for i in range(self.V):
-            print(lst[i]+" : "+str(color[i]))
+            print(str(i)+" : "+str(color[i]))
 
     def Start(self):
         color=list()
@@ -41,3 +37,4 @@ class Bt:
             color.append(0)
         if not(self.graphColoring(self.graph,self.m,0,color)):
             print("Solution does not exist")
+
