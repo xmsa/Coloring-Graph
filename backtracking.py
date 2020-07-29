@@ -1,10 +1,12 @@
 from Data import Data
 class Bt:
-    def __init__(self , Matrix , V , M,T=2):
+    def __init__(self , Matrix ,N , col, V , M,T=2):
         self.graph = Matrix
         self.m=M
         self.V=V
         self.T=T
+        self.name=N
+        self.cl=col
 
     def isSafe(self,graph, color):
         for i in range(self.V):
@@ -29,7 +31,7 @@ class Bt:
     def printSolution(self,color) :
         print("Solution Exists: Following are the assigned colors")
         for i in range(self.V):
-            print(str(i)+" : "+str(color[i]))
+            print(self.name[i]+" : "+self.cl[color[i]])
 
     def Start(self):
         color=list()

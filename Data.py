@@ -44,7 +44,7 @@ class Data:
             "Sistan and Baluchestan Kerman Hormozgān",
             "Khorasan, North Khorasan, Razavi Khorasan, South"
             ]
-        self.__cl=[
+        self.cl=[
             'Red','Blue','Black','White','Green','Pink','Yellow','Gray','Rain']
         self.__lst2=[
             (1,3), (1,2), (1,4), (1,5), (1,6), (2,1),
@@ -86,16 +86,21 @@ class Data:
             (29,25), (29,26), (29,28),
             (30,27), (30,26), (30,21), (30,14)
             ]
-        self.matrix=self.__start(h , s)
+        self.matrix , self.name=self.__start(h , s)
         
     def __start(self,h , s):
         D=self.__lst1
-        if s ==2:
+        N=self.__namelist
+        if s == 2:
             D=self.__lst2
-        M=self.__createMatrix(D)
-        if h==2:
-            M=self.__sort(M)
-        return M
+            N=self.__namelist2
+
+        M = self.__createMatrix(D)
+        if h== 2:
+            M , N = self.__sort(M ,N)
+        if h== 3:
+            M , N = self.__rsort(M , N)
+        return M ,N
 
     def __createMatrix(self,lst):
         b=dict()
@@ -125,8 +130,12 @@ class Data:
             matrix[i[0]][i[1]]=1
         return matrix
 
-    def __move (self,matrix , m , n):
+    def __move (self,matrix  , N, m , n):
         yal=list()
+
+        a=N[n]
+        N[n]=N[m]
+        N[m]=a
 
         for i in range(len(matrix)):
             for j in range(len(matrix[i])):
@@ -163,13 +172,25 @@ class Data:
             M.append(c)
         return M
 
-    def __sort(self,matrix):
+    def __sort(self,matrix , N):
         l=self.__yal(matrix)
         for i in range(len(l)):
             j=i+1
             while j<len(l):
                 if l[i]<l[j]:
-                    matrix=self.__move(matrix , i , j)
+                    matrix=self.__move(matrix , N , i , j)
+
                     l=self.__yal(matrix)
                 j+=1
-        return matrix
+        return matrix , N
+    def __rsort(self,matrix,N):
+        l=self.__yal(matrix)
+        for i in range(len(l)):
+            j=i+1
+            while j<len(l):
+                if l[i]>l[j]:
+                    matrix=self.__move(matrix , N , i , j)
+                    
+                    l=self.__yal(matrix)
+                j+=1
+        return matrix , N
